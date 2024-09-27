@@ -1,7 +1,6 @@
 import {React, useState} from 'react'
 //import { useNavigate } from 'react-router-dom'
 import './home.css'
-
 const mainURL = 'http://localhost:8080/api/v1/'
 
 const Home = () => {
