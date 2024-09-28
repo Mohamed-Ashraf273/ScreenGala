@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-
 export default class controller{
     static authToken(req, res, next){
         const authHeader = req.headers['authorization']
