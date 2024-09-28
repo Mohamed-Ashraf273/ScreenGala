@@ -27,7 +27,7 @@ const LogIn = () => {
       const data = await response.json()
       setMessage(data.message)
       if(data.message === 'Logged in successfully'){
-        navigate('/ScreenGala/home')
+        navigate('/ScreenGala/home', { state: data.access_token })
       }
     } catch (err) {
       console.error('There was a problem with the fetch operation:', err)
