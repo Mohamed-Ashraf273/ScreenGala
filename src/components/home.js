@@ -8,8 +8,7 @@ const Home = () => {
     const [data, setData] = useState([])
     const [message, setMessage] = useState('')
     const location = useLocation()
-    const token = location.state 
-
+    const token = location.state.accssToken
     const GetUserReviews = async () => {
         try {
             const response = await fetch(`${mainURL}user`, {
