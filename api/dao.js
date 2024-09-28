@@ -2,8 +2,8 @@ import {GetPool} from '../db.js'
 import bcrypt from 'bcrypt'
 
 export default class dao{
-    static async daoLoginCheck(email, password){
-        try{
+    static async daoLoginCheck(email, password) {
+        try {
             const pool = await GetPool()
             const result = await pool.request()
                 .input('Email', email)
@@ -12,19 +12,29 @@ export default class dao{
                     FROM Users
                     WHERE email = @Email
                 `)
-            if(result.recordset.length !== 0){
+    
+            if (result.recordset.length !== 0) {
                 const isMatch = await bcrypt.compare(password, result.recordset[0].password)
-                if(isMatch){
-                    return 'Logged in successfully'
+                if (isMatch) {
+                    return {
+                        message: 'Logged in successfully',
+                        id: result.recordset[0].uid.toString() // Use the correct index
+                    }
                 }
-                return 'Wrong password please try again!'
+                return {
+                    message: 'Wrong password, please try again!'
+                }
             }
-            return 'There is no user with this account, please sign up first'
-        }catch(err){
+            return {
+                message: 'There is no user with this account, please sign up first'
+            }
+        } catch (err) {
             console.error("Error: ", err)
+            return {
+                message: 'DB error, please try later :)'
+            }
         }
-        return 'DB error please try later :)'
-    }
+    }    
     static async daoAddUser(username, email, password){
         try{
             const pool = await GetPool()

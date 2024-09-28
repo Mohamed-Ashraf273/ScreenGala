@@ -1,20 +1,39 @@
-import { response } from 'express'
 import dao from '../api/dao.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 
 export default class controller{
+    static authToken(req, res, next){
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        if(token == null) return res.status(400).json({message: "no token is found"})
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if(err) return res.status(403).json({message: "not a valid token"})
+            req.user = user
+            next()
+        })
+    }
     static async authLogin(req, res, next){
         try{
             const email = req.body.email
             const password = req.body.password
             const response = await dao.daoLoginCheck(email, password)
-            if(response == 'Logged in successfully'){
-                res.status(200).json({message: response})
+            if(response.message === 'Logged in successfully'){
+                const user = { id: response.id}
+                const accssToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET) // userinfo stored hidden here
+                res.status(200).json({
+                    message: response.message,
+                    access_token: accssToken
+                })
                 return
             }
-            res.status(400).json({message: response})
+            res.status(400).json({message: response.message})
         }catch(err){
-            res.status(500).json({error: err.message,})
+            res.status(500).json({error: err.message})
         }
         return 
     }
@@ -58,7 +77,7 @@ export default class controller{
     } 
     static async getMyReviews(req, res, next){// getting my reviews for all movies
         try{
-            let id = parseInt(req.params.id)
+            let id = parseInt(req.user.id)
             let reviews = await dao.daoGetMyReviews(id)
             if(!reviews){
                 return res.status(400).json({error: "Not Found"})

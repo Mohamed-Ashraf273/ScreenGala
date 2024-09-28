@@ -1,32 +1,34 @@
 import sql from 'mssql'
+import dotenv from 'dotenv'
 
-// Configuration for the SQL Server connection
+dotenv.config()
+
 const config = {
-    server: 'MOHAMED606260\\SQLEXPRESS',  
-    database: 'MovieReviews',
+    server: process.env.DB_SERVER,
+    database: process.env.DB_DATABASE,
     options: {
-        encrypt: false,  
-        trustServerCertificate: true
+        encrypt: false,
+        trustServerCertificate: true,
     },
     authentication: {
-        type: 'default',  
+        type: 'default',
         options: {
-            userName: 'Mohamed273',  
-            password: 'mm275149' 
-        }
-    }
+            userName: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+        },
+    },
 }
 
 let pool
 
 export const connectDB = async () => {
-    try{
+    try {
         pool = await sql.connect(config)
         console.log("Success connection to DB")
-    }catch(err){
+    } catch (err) {
         console.log("Failed to connect to DB: ", err)
         throw err
     }
 }
 
-export const GetPool = () =>  pool
+export const GetPool = () => pool

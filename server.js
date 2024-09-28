@@ -2,7 +2,6 @@ import express from 'express'
 import router from './api/routes.js'
 import { connectDB } from './db.js'
 import cors from 'cors'
-
 const port = 8080
 
 try{
