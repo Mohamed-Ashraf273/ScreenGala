@@ -14,7 +14,4 @@ router.route('/user').get(ctrl.authToken, ctrl.getMyReviews).put(ctrl.updateRevi
 //getting all users (admins)
 router.route('/getusers').get(ctrl.getAllUsers)
 
-// Login (users)
-router.route('/login').post(ctrl.authLogin)
-
 export default router

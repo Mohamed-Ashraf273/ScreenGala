@@ -2,6 +2,52 @@ import {GetPool} from '../db.js'
 import bcrypt from 'bcrypt'
 
 export default class dao{
+    static async daoDeleteToken(token){
+        try{
+            const pool = await GetPool()
+            const result = await pool.request()
+            .input("Token", token)
+            .query(`
+                DELETE FROM RefreshTokens
+                WHERE refreshTokens = @Token;
+            `)
+            return true
+        }catch(err){
+            console.error("Error: ", err)
+            return false
+        }
+    }
+    static async daoFindToken(rToken){
+        try{
+            const pool = await GetPool()
+            const result = await pool.request()
+            .input("RToken", rToken)
+            .query(`
+                SELECT *
+                FROM RefreshTokens
+                WHERE refreshTokens = @RToken
+            `)
+            return result.recordset.length > 0 
+        }catch(err){
+            console.error("Error: ", err)
+            return false
+        }
+    }
+    static async daoAddRefreshToken(rToken){
+        try{
+            const pool = await GetPool()
+            const result = await pool.request()
+            .input("RToken", rToken)
+            .query(`
+                INSERT INTO RefreshTokens (refreshTokens)
+                VALUES (@RToken)
+            `)
+            return result.rowsAffected[0] > 0
+        }catch(err){
+            console.error("Error: ", err)
+        }
+        return false
+    }
     static async daoLoginCheck(email, password) {
         try {
             const pool = await GetPool()

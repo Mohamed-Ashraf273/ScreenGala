@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js",
+    "devStartAuth": "nodemon authServer.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run devStart\" \"npm run client\"",
+    "dev": "concurrently \"npm run devStart\" \"npm run devStartAuth\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

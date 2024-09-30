@@ -6,7 +6,7 @@ const port = 8080
 
 try{
     connectDB()
-    console.log("connected to DB")
+    console.log("connected to DB form the main server")
 }catch(err){
     console.log(err)
 }

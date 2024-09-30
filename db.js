@@ -21,10 +21,9 @@ const config = {
 
 let pool
 
-export const connectDB = async () => {
+export const connectDB = () => {
     try {
-        pool = await sql.connect(config)
-        console.log("Success connection to DB")
+        pool = sql.connect(config)
     } catch (err) {
         console.log("Failed to connect to DB: ", err)
         throw err

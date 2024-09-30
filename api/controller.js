@@ -6,36 +6,25 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default class controller{
-    static authToken(req, res, next){
+    static authToken(req, res, next) {
         const authHeader = req.headers['authorization']
         const token = authHeader && authHeader.split(' ')[1]
-        if(token == null) return res.status(400).json({message: "no token is found"})
+        if (token == null) {
+            return res.status(400).json({ message: "No token found" })
+        }
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if(err) return res.status(403).json({message: "not a valid token"})
+            if (err) {
+                // Check if the error is due to token expiration
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(401).json({ message: "Token expired" }) // 401 for unauthorized due to expired token
+                }
+                return res.status(403).json({ message: "Not a valid token" }) // 403 for other token errors
+            }
             req.user = user
-            next()
+            next();
         })
     }
-    static async authLogin(req, res, next){
-        try{
-            const email = req.body.email
-            const password = req.body.password
-            const response = await dao.daoLoginCheck(email, password)
-            if(response.message === 'Logged in successfully'){
-                const user = { id: response.id}
-                const accssToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET) // userinfo stored hidden here
-                res.status(200).json({
-                    message: response.message,
-                    access_token: accssToken
-                })
-                return
-            }
-            res.status(400).json({message: response.message})
-        }catch(err){
-            res.status(500).json({error: err.message})
-        }
-        return 
-    }
+    
     static async getAllUsers(req, res, next){
 
     }
