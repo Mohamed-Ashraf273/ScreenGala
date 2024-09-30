@@ -28,7 +28,7 @@ const SignUp = () => {
       const data = await response.json()
       setMessage(data.message)
       if(data.message === 'User added successfully'){
-        navigate('/ScreenGala/home')
+        navigate('/ScreenGala/login')
       }
     } catch (err) {
       console.error('There was a problem with the fetch operation:', err)

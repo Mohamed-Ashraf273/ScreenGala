@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './signupLogin.css'
 
-const mainURL = 'http://localhost:8080/api/v1/'
+const mainURL = 'http://localhost:4000/api/v1/'
 
 const LogIn = () => {
   const [email, setEmail] = useState('')
@@ -26,12 +26,15 @@ const LogIn = () => {
       })
       const data = await response.json()
       setMessage(data.message)
-      if(data.message === 'Logged in successfully'){
+      if (data.message === 'Logged in successfully') {
+        //console.log(data.refresh_token)
         navigate('/ScreenGala/home', { 
-          state: {
-            accssToken: data.access_token
-        } })
-      }
+            state: {
+                accessToken: data.access_token, // Consistent naming: accessToken
+                refreshToken: data.refresh_token // Consistent naming: refreshToken
+            } 
+        })
+    }    
     } catch (err) {
       console.error('There was a problem with the fetch operation:', err)
       alert('Failed to login user: ' + err.message)
