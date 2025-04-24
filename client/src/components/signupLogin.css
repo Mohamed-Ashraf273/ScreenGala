@@ -1,0 +1,96 @@
+/* SignUp.css */
+
+body {
+  background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+form {
+  width: 300px;
+  margin: 100px auto; /* Center the form vertically */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+form:hover {
+  transform: scale(1.02); /* Slightly enlarge the form on hover */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  border: 2px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #28a745; /* Green border on focus */
+  outline: none; /* Remove default outline */
+}
+
+label {
+  margin-top: 5px;
+  display: block;
+  color: #555;
+}
+.btn-group {
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: 15px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px; /* Rounded corners for button */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.signup-link {
+  background: none; /* Remove button background */
+  border: none; /* Remove button border */
+  color: #007bff; /* Blue color for the link */
+  cursor: pointer; /* Cursor pointer to indicate clickable */
+  text-decoration: underline; /* Underline to make it look like a link */
+  padding: 0; /* Remove default padding */
+  font-size: 16px;
+  margin-bottom: 10px; /* Space below the Sign Up link */
+}
+
+.signup-link:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.btn:hover {
+  background-color: #218838;
+}
+
+#error-mes {
+  color: red;
+  margin-top: 10px;
+  text-align: center; /* Center the error message */
+  font-weight: bold;
+}
