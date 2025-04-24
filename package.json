@@ -1,5 +1,5 @@
 {
-  "name": "my-express-app",
+  "name": "screen-gala",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
@@ -8,17 +8,18 @@
     "devStartAuth": "nodemon authServer.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run devStart\" \"npm run devStartAuth\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Mohamed Ashraf",
+  "license": "MIT",
+  "description": "a movie website reviewer and recommender (ML-based)",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
     "mssql": "^11.0.1",
@@ -27,5 +28,13 @@
   "devDependencies": {
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohamed-Ashraf273/ScreenGala.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mohamed-Ashraf273/ScreenGala/issues"
+  },
+  "homepage": "https://github.com/Mohamed-Ashraf273/ScreenGala#readme"
 }
